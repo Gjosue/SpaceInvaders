@@ -8,13 +8,14 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import enemys.enemy;
+
 public class Server extends Thread{
 	
 	private static ServerSocket server;
 	private static Socket cliente;
     private static BufferedReader entrada;
-    public static int position;
-    public static int fire;
+    public static String command;
     private static PrintWriter salida;
     private static serverFunctions function = new serverFunctions();
     
@@ -26,16 +27,15 @@ public class Server extends Thread{
      */
     public void run() {	
     	try {
-    		server = new ServerSocket(8000);
+    		server = new ServerSocket(9000);
     		while(true) {
     			cliente = server.accept();
     			entrada = new BufferedReader(new InputStreamReader(cliente.getInputStream()));
-    			salida = new PrintWriter(new OutputStreamWriter(cliente.getOutputStream()));
-    			position = entrada.read();
-    			fire = entrada.read();
-    			//System.out.println(fire);
-    			function.movement(position, fire);
-    			function.fire(fire);
+    			//salida = new PrintWriter(new OutputStreamWriter(cliente.getOutputStream()));
+    			command = entrada.readLine();
+    			System.out.println(command);
+    			function.movement(command);
+    			function.fire(command);
     			//salida.print(position);
     			cliente.close();
     		}

@@ -4,11 +4,16 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Frame;
+import java.awt.GridLayout;
 import java.awt.Label;
 import java.awt.PopupMenu;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
 import javax.swing.JFrame;
+
 
 public class Window {
 	private String title;
@@ -50,5 +55,9 @@ public class Window {
 	
 	public Canvas getCanvas() {
 		return canvas;
+	}
+	
+	public void createLabel() {
+		
 	}
 }

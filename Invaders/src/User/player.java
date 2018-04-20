@@ -13,8 +13,8 @@ public class player implements KeyListener {
 	
 	private int x, y;
 	private boolean left, right, fire;
-	private long current, delay;
 	private static player instance = null;
+	private boolean shoot = true;
 	
 	private player(int x, int y) {
 		this.x = x;
@@ -35,8 +35,6 @@ public class player implements KeyListener {
 	 */
 	public void init() {
 		Window.frame.addKeyListener(this);
-		current = System.nanoTime();
-		delay = 100;
 	}
 	/**
 	 * maneja la posicion y movimiento del jugador y los disparos
@@ -53,11 +51,10 @@ public class player implements KeyListener {
 			}
 		}
 		if (fire) {
-			long breaks = (System.nanoTime() - current)/1000000;
-			if (breaks > delay) {
+			if (shoot) {
 				gameManager.bullet.add(new bullet(x + 12, y));
+				shoot = false;
 			}
-			current = System.nanoTime();
 		}
 		
 	}
@@ -97,6 +94,7 @@ public class player implements KeyListener {
 		}
 		if (source == KeyEvent.VK_L) {
 			fire = false;
+			shoot = true;
 		}
 	}
 	

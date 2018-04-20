@@ -80,6 +80,11 @@ public class SetUp implements Runnable {
 		b.show();
 		g.dispose();
 	}
+	
+	public void user() {
+		Window = new Window(title, width, height);
+		
+	}
 	/**
 	 * metodo para iniciar el thread y llamar algunos metodos para el funcionamiento del juego
 	 */

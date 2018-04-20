@@ -11,10 +11,10 @@ public class serverFunctions{
 	 * @param pos
 	 * @param fire
 	 */
-	public void movement(int pos, int fire){
-		if(pos == 49 | fire == -1 ) {
+	public void movement(String pos){
+		if(pos.equals("left")) {
 			user.sensorL();
-		}else if(pos == 50 | fire == -1){
+		}else if(pos.equals("right")){
 			user.sensorR();
 		}else{
 			user.stabilizer();
@@ -24,8 +24,8 @@ public class serverFunctions{
 	 * metodo para controlar las balas del jugador mediante las señales llegadas al servidor por parte del cliente android
 	 * @param fire
 	 */
-	public void fire(int fire) {
-		if (fire == -1) {
+	public void fire(String fire) {
+		if (fire.equals("fire")) {
 			user.fire();
 		}else {
 			user.nonFire();

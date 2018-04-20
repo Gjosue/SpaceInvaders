@@ -4,6 +4,7 @@ public class LinkedList <T>{
 	private Nodo<T> head;
 	private Nodo<T> tail;
 	private int large;
+	
 	public LinkedList(){
 		this.head = null;
 		this.tail = null;
@@ -79,5 +80,15 @@ public class LinkedList <T>{
 			System.out.println(actual.getDato());
 			actual = actual.getNext();
 		}
+	}
+	
+	public T get(int i) {
+		int cont = 0;
+		Nodo<T> temp = this.head;
+		while(cont < i) {
+			temp = temp.getNext();
+			cont ++;
+		}
+		return temp.getDato();
 	}
 }

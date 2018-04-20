@@ -1,5 +1,6 @@
 package controller;
 
+import enemys.enemy;
 import server.Server;
 
 public class controller {
@@ -13,6 +14,7 @@ public class controller {
 		Thread server = new Server("proceso 1");
 		game.start();
 		server.start();
+		
 		
 	}
 }
