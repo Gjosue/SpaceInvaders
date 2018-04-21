@@ -7,6 +7,7 @@ import java.awt.Rectangle;
 import Lists.Nodo;
 import controller.gameManager;
 import enemys.enemy;
+import enemys.randomClass;
 
 public class bullet {
 	
@@ -47,13 +48,24 @@ public class bullet {
 	}
 	
 	public boolean hit() {
-		for (int i = 0; i < gameManager.enemys.getLarge(); i ++) {
-			enemy temp = gameManager.enemys.get(i);
-			if (temp.getBounds().intersects(getBounds())) {
-				temp.mori();
-				return true;
+		if(randomClass.enemys.getLarge() != 0) {
+			for (int i = 0; i < randomClass.enemys.getLarge(); i ++) {
+				enemy temp = randomClass.enemys.getNodo(i);
+				if (temp.getBounds().intersects(getBounds())) {
+					temp.mori();
+					return true;
+				}
 			}
+		}
+		if(randomClass.enemys1.getLarge() != 0) {
+			for (int i = 0; i < randomClass.enemys1.getLarge(); i ++) {
+				enemy temp = randomClass.enemys1.getNodo(i);
+				if (temp.getBounds().intersects(getBounds())) {
+					temp.mori();
+					return true;
+				}
 			
+			}
 		}
 		return false;
 	}

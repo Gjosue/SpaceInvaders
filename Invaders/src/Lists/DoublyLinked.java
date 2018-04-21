@@ -1,9 +1,13 @@
 package Lists;
 
+
 public class DoublyLinked <T>{
 	private Nodo<T> head;
 	private Nodo<T> tail;
 	private int large;
+	public int positionEnemy;
+	public int positionBoss;
+	public int position;
 	public DoublyLinked(){
 		this.head = null;
 		this.tail = null;
@@ -58,17 +62,21 @@ public class DoublyLinked <T>{
 				if(nodo != head && nodo.getNext() == null){
 					nodo.getPrev().setNext(null);
 					this.tail = nodo.getPrev();
+					large --;
 				}else if(nodo == head){
 					if(nodo.getNext() == null){
-						this.head = nodo.getNext();
-						this.tail = nodo.getPrev();
+						this.head = null;
+						this.tail = null;
+						large --;
 					}else{
 						this.head = nodo.getNext();
 						nodo.getNext().setPrev(null);
+						large --;
 					}
 				}else if(nodo != head && nodo.getNext() != null && nodo.getPrev() != null){
 					nodo.getPrev().setNext(nodo.getNext());
 					nodo.getNext().setPrev(nodo.getPrev());
+					large --;
 				}
 				break;
 			}else{
@@ -76,6 +84,13 @@ public class DoublyLinked <T>{
 			}
 		}
 	}
+	
+	public void deleteAll() {
+		this.head.setNext(null);
+		this.head = null;
+		this.setLarge(0);
+	}
+	
 	/**
 	 * Metodo para imprimir la lista
 	 */
@@ -86,5 +101,35 @@ public class DoublyLinked <T>{
 			actual = actual.getNext();
 		}
 	}
+	
+	public T getNodo(int i) {
+		int cont = 0;
+		Nodo<T> temp = this.head;
+		while(cont < i) {
+			temp = temp.getNext();
+			cont ++;
+		}
+		return temp.getDato();
+	}
+	
+	public void search(T num) {
+		position = 0;
+		Nodo<T> temp = this.head;
+		while(temp != null){
+			if(temp.getDato() == num){
+				if(temp == this.head) {
+					System.out.println("El numero " + num + " esta en la posicion " + position);
+					break;
+				}else {
+					System.out.println("El numero " + num + " esta en la posicion " + position);
+					break;
+				}
+			}else {
+				temp = temp.getNext();
+				position ++;
+			}
+		}
+	}
+	
 	 
 }

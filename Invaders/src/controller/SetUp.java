@@ -42,7 +42,6 @@ public class SetUp implements Runnable {
 			thread.start();
 		}
 	}
-	
 	public synchronized void stop() {
 		if(!(run))
 			return;

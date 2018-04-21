@@ -71,6 +71,12 @@ public class LinkedList <T>{
 			}
 		}
 	}
+	
+	public void deleteAll() {
+		this.head.setNext(null);
+		this.head = null;
+		this.setLarge(0);
+	}
 	/**
 	 * Matodo para imprimir la lista
 	 */
@@ -82,7 +88,7 @@ public class LinkedList <T>{
 		}
 	}
 	
-	public T get(int i) {
+	public T getNodo(int i) {
 		int cont = 0;
 		Nodo<T> temp = this.head;
 		while(cont < i) {

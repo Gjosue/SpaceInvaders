@@ -38,7 +38,7 @@ public class Window {
 		frame.setSize(width, height);
 		frame.setVisible(true);
 		frame.setLocationRelativeTo(null);
-		frame.setResizable(false);
+		frame.setResizable(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		canvas = new Canvas();
 		canvas.setPreferredSize(new Dimension(width, height));

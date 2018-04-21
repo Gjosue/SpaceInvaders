@@ -10,13 +10,17 @@ public class enemy {
 	
 	
 	public int x, a, b;
-	private int y = 10;
+	public int y = 10;
 	private int move = 10;
+	public int health = 1;
+	public int ID;
+	public boolean cond = false;
 	
-	public enemy (int x, int a, int b) {
+	public enemy (int x, int a, int b, int ID) {
 		this.x = x;
 		this.a = a;
 		this.b = b;
+		this.ID = ID;
 	}
 	
 	public void tick() {
@@ -30,7 +34,10 @@ public class enemy {
 		}
 		x += move;
 	}
-	
+	/**
+	 * 
+	 * @param g
+	 */
 	public void render(Graphics g) {
 		g.setColor(Color.GREEN);
 		g.fillRect(x, y, 30, 30);
@@ -41,6 +48,14 @@ public class enemy {
 	}
 	
 	public void mori() {
-		gameManager.enemys.delete(this);
+		health --;
+		if(health == 0) {
+			if(randomClass.enemys.getLarge() != 0) {
+				randomClass.enemys.delete(this);
+			}
+			if(randomClass.enemys1.getLarge() != 0) {
+				randomClass.enemys1.delete(this);
+			}
+		}
 	}
 }
