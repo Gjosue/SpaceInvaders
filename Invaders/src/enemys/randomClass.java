@@ -16,21 +16,22 @@ import User.player;
 
 public class randomClass {
 	
-	public static LinkedList<enemy> enemys = new LinkedList<enemy>();
-	public static DoublyLinked<enemy> enemys1 = new DoublyLinked<enemy>();
-	public static CircularList<enemy> enemys2 = new CircularList<enemy>();
+	public static LinkedList<enemy> enemies = new LinkedList<enemy>();
+	public static DoublyLinked<enemy> enemies1 = new DoublyLinked<enemy>();
+	public static CircularList<enemy> enemies2 = new CircularList<enemy>();
 	public static Basic basic = new Basic();
 	private classA A = new classA();
 	private classB B = new classB();
 	private classC C = new classC();
 	private classD D = new classD();
-	private String clase = "";
-	private String nextclass = "";
+	public static String clase = "";
+	public static String nextclass = "";
 	public static int cont = 0;
 	public static int level = 1;
 	private int counter = 1;
 	BufferedImage image;
 	public static DoublyLinked<Integer> tipos = new DoublyLinked<Integer>();
+	public static DoublyLinked<Integer> tipos2 = new DoublyLinked<Integer>();
 	
 	
 	public void init() {
@@ -51,17 +52,17 @@ public class randomClass {
 	public void tick() {
 		lose();
 		if(clase.equals("basic") | clase.equals("A") ){
-			for (int i = 0; i < enemys.getLarge(); i ++) {
-				enemys.getNodo(i).getDato().tick();
+			for (int i = 0; i < enemies.getLarge(); i ++) {
+				enemies.getNodo(i).getDato().tick();
 			}
 		}else if(clase.equals("B")) {
-			for (int i = 0; i < enemys1.getLarge(); i ++) {
-				enemy ene = (enemy) enemys1.getNodo(i).getDato();
+			for (int i = 0; i < enemies1.getLarge(); i ++) {
+				enemy ene = (enemy) enemies1.getNodo(i).getDato();
 				ene.tick();
 			}
 		}else if(clase.equals("C")) {
-			for (int i = 0; i < enemys2.getLarge(); i ++) {
-				enemy ene = (enemy) enemys2.getNodo(i).getDato();
+			for (int i = 0; i < enemies2.getLarge(); i ++) {
+				enemy ene = (enemy) enemies2.getNodo(i).getDato();
 				ene.tick();
 			}
 		}else {
@@ -70,30 +71,25 @@ public class randomClass {
 	}
 	
 	public void render(Graphics g) {
-//		try {
-//			image =  ImageIO.read(this.getClass().getResource("/fondo.png"));
-//		}catch(IOException e) {
-//		}
-//		g.drawImage(image, 150, 8, 1060, 688, Window.frame);
 		counter ++;
 		if(clase.equals("basic") | clase.equals("A")){
-			for(int i = 0; i < enemys.getLarge(); i++) {
-				enemys.getNodo(i).getDato().render(g);
+			for(int i = 0; i < enemies.getLarge(); i++) {
+				enemies.getNodo(i).getDato().render(g);
 			}
 		}else if(clase.equals("B")) {
-			for(int i = 0; i < enemys1.getLarge(); i++) {
-				enemy ene = (enemy) enemys1.getNodo(i).getDato();
+			for(int i = 0; i < enemies1.getLarge(); i++) {
+				enemy ene = (enemy) enemies1.getNodo(i).getDato();
 				ene.render(g);
 			}
-			if(counter % 10 == 0) {
+			if(counter % 30 == 0) {
 				Random random = new Random();
 				int select = random.nextInt(tipos.getLarge() + 1);
 				int rnd = tipos.getNodo(select - 1).getDato();
-				enemys1.change(0, rnd);
+				enemies1.change(0, rnd);
 			}
 		}else if(clase.equals("C")) {
-			for(int i = 0; i < enemys2.getLarge(); i++) {
-				enemy ene = (enemy) enemys2.getNodo(i).getDato();
+			for(int i = 0; i < enemies2.getLarge(); i++) {
+				enemy ene = (enemy) enemies2.getNodo(i).getDato();
 				ene.render(g);
 			}
 		}else{
@@ -103,40 +99,47 @@ public class randomClass {
 		
 	}
 	
+	public static void change() {
+		Random random = new Random();
+		int select = random.nextInt(tipos2.getLarge() + 1);
+		int rnd = tipos2.getNodo(select - 1).getDato();
+		enemies2.change(0, rnd);
+	}
+	
 	public static void put() {
 		int i = 0;
 		int n = 0;
 		int m = limits();
-		if(enemys.getLarge() != 0) {
-			int xa = enemys.getNodo(0).getDato().x;
-			while(i < enemys.getLarge()) {
-				enemys.getNodo(i).getDato().x = xa;
-				enemys.getNodo(i).getDato().a = n;
-				enemys.getNodo(i).getDato().b = m;
+		if(enemies.getLarge() != 0) {
+			int xa = enemies.getNodo(0).getDato().x;
+			while(i < enemies.getLarge()) {
+				enemies.getNodo(i).getDato().x = xa;
+				enemies.getNodo(i).getDato().a = n;
+				enemies.getNodo(i).getDato().b = m;
 				xa += 100;
 				n += 100;
 				m += 100;
 				i ++;
 			}
 		}
-		if(enemys1.getLarge() != 0) {
-			int xb = enemys1.getNodo(0).getDato().x;
-			while(i < enemys1.getLarge()) {
-				enemys1.getNodo(i).getDato().x = xb;
-				enemys1.getNodo(i).getDato().a = n;
-				enemys1.getNodo(i).getDato().b = m;
+		if(enemies1.getLarge() != 0) {
+			int xb = enemies1.getNodo(0).getDato().x;
+			while(i < enemies1.getLarge()) {
+				enemies1.getNodo(i).getDato().x = xb;
+				enemies1.getNodo(i).getDato().a = n;
+				enemies1.getNodo(i).getDato().b = m;
 				xb += 100;
 				n += 100;
 				m += 100;
 				i ++;
 			}
 		}
-		if(enemys2.getLarge() != 0) {
-			int xc = enemys2.getNodo(0).getDato().x;
-			while(i < enemys2.getLarge()) {
-				enemys2.getNodo(i).getDato().x = xc;
-				enemys2.getNodo(i).getDato().a = n;
-				enemys2.getNodo(i).getDato().b = m;
+		if(enemies2.getLarge() != 0) {
+			int xc = enemies2.getNodo(0).getDato().x;
+			while(i < enemies2.getLarge()) {
+				enemies2.getNodo(i).getDato().x = xc;
+				enemies2.getNodo(i).getDato().a = n;
+				enemies2.getNodo(i).getDato().b = m;
 				xc += 100;
 				n += 100;
 				m += 100;
@@ -146,11 +149,11 @@ public class randomClass {
 	}
 	
 	public static int limits() {
-		if(enemys.getLarge() == 4 | enemys1.getLarge() == 4 | enemys2.getLarge() == 4) {
+		if(enemies.getLarge() == 4 | enemies1.getLarge() == 4 | enemies2.getLarge() == 4) {
 			return 630;
-		}else if(enemys.getLarge() == 3 | enemys1.getLarge() == 3 | enemys2.getLarge() == 3) {
+		}else if(enemies.getLarge() == 3 | enemies1.getLarge() == 3 | enemies2.getLarge() == 3) {
 			return 730;
-		}else if(enemys.getLarge() == 2 | enemys1.getLarge() == 2 | enemys2.getLarge() == 2) {
+		}else if(enemies.getLarge() == 2 | enemies1.getLarge() == 2 | enemies2.getLarge() == 2) {
 			return 830;
 		}else {
 			return 930;
@@ -158,7 +161,7 @@ public class randomClass {
 	}
 	
 	public void generateLevels() {
-		String [] tipos = {"B"};
+		String [] tipos = {"C"};
 		Random random = new Random();
 		int select = random.nextInt(tipos.length);
 		if(level == 1) {
@@ -187,25 +190,24 @@ public class randomClass {
 				init();
 				nextclass = tipos[select];
 		}
-		System.out.println(player.getPlayer().score);
 	}
 	
 	public void lose() {
-		if(enemys.getLarge() != 0) {
-			if(enemys.getHead().getDato().y > 550){
-				enemys.deleteAll();
+		if(enemies.getLarge() != 0) {
+			if(enemies.getHead().getDato().y > 550){
+				enemies.deleteAll();
 				restart();
 			}
 		}
-		if(enemys1.getLarge() != 0) {
-			if(enemys1.getHead().getDato().y > 550){
-				enemys1.deleteAll();
+		if(enemies1.getLarge() != 0) {
+			if(enemies1.getHead().getDato().y > 550){
+				enemies1.deleteAll();
 				restart();
 			}
 		}
-		if(enemys2.getLarge() != 0) {
-			if(enemys2.getHead().getDato().y > 550){
-				enemys2.deleteAll();
+		if(enemies2.getLarge() != 0) {
+			if(enemies2.getHead().getDato().y > 550){
+				enemies2.deleteAll();
 				restart();
 			}
 		}
@@ -215,8 +217,10 @@ public class randomClass {
 		level = 1;
 		player.getPlayer().score = 0;
 		cont = 0;
+		enemy.more = 10;
 		JOptionPane.showMessageDialog(null,"HAS PERDIDO, COMIENZA DE NUEVO!!");
 		generateLevels();
 	}
-
+	
+	
 }

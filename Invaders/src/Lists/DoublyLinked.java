@@ -43,7 +43,7 @@ public class DoublyLinked <T>{
 	 * Matodo para añadir datos
 	 * @param dato
 	 */
-	public void add(T dato, int id, String name){
+	public void add(T dato, int id){
 		large ++;
 		if(this.head == null){
 			this.head = new DoubleNodo<T>(dato, id);
@@ -60,6 +60,9 @@ public class DoublyLinked <T>{
 	 * @param dato
 	 */
 	public void delete(T dato){
+		if(this.getLarge() == 1) {
+			this.deleteAll();
+		}
 		DoubleNodo<T> nodo = this.head;
 		while(nodo != null){
 			if(nodo.getDato() == dato){
@@ -138,7 +141,7 @@ public class DoublyLinked <T>{
 				position ++;
 			}
 		}
-		if (randomClass.enemys1.getLarge() == position) {
+		if (randomClass.enemies1.getLarge() == position) {
 			position = 0;
 		}
 	}
@@ -146,14 +149,12 @@ public class DoublyLinked <T>{
 	public void change(int boss, int enemy) {
 		search(boss);
 		positionBoss = position;
-		System.out.println(positionBoss);
 		search(enemy);
 		positionEnemy = position;
-		System.out.println(positionEnemy);
-		enemy temp = randomClass.enemys1.getNodo(positionBoss).getDato();
-		enemy temp1 = randomClass.enemys1.getNodo(positionEnemy).getDato();
-		randomClass.enemys1.getNodo(positionEnemy).setDato(temp);
-		randomClass.enemys1.getNodo(positionBoss).setDato(temp1);
+		enemy temp = randomClass.enemies1.getNodo(positionBoss).getDato();
+		enemy temp1 = randomClass.enemies1.getNodo(positionEnemy).getDato();
+		randomClass.enemies1.getNodo(positionEnemy).setDato(temp);
+		randomClass.enemies1.getNodo(positionBoss).setDato(temp1);
 		int n1 = temp.a;
 		int n2 = temp1.a;
 		int m1 = temp.b;

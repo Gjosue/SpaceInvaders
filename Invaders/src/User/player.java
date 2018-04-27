@@ -1,5 +1,7 @@
 package User;
 
+import java.applet.Applet;
+import java.applet.AudioClip;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
@@ -20,6 +22,7 @@ public class player implements KeyListener {
 	private static player instance = null;
 	public boolean shoot = true;
 	public static int score = 0;
+	public AudioClip SHOOT = Applet.newAudioClip(SetUp.class.getResource("/misc/shoot.wav"));
 	
 	private player(int x, int y) {
 		this.x = x;
@@ -57,6 +60,7 @@ public class player implements KeyListener {
 		}
 		if (fire) {
 			if (shoot) {
+				SHOOT.play();
 				gameManager.bullet.add(new bullet(x + 27, y));
 				shoot = false;
 			}
@@ -108,8 +112,7 @@ public class player implements KeyListener {
 			shoot = true;
 		}
 	}
-	
-	public void keyTyped(KeyEvent e) {
-		
+	@Override
+	public void keyTyped(KeyEvent arg0) {
 	}
 }

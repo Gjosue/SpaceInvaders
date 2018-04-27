@@ -16,7 +16,7 @@ public class bullet {
 	public bullet(int x, int y) {
 		this.x = x;
 		this.y = y;
-		speed = 150;
+		speed = 50;
 	}
 	/**
 	 * controla la distancia entre las balas 
@@ -48,18 +48,18 @@ public class bullet {
 	}
 	
 	public boolean hit() {
-		if(randomClass.enemys.getLarge() != 0) {
-			for (int i = 0; i < randomClass.enemys.getLarge(); i ++) {
-				enemy temp = randomClass.enemys.getNodo(i).getDato();
+		if(randomClass.enemies.getLarge() != 0) {
+			for (int i = 0; i < randomClass.enemies.getLarge(); i ++) {
+				enemy temp = randomClass.enemies.getNodo(i).getDato();
 				if (temp.getBounds().intersects(getBounds())) {
 					temp.mori();
 					return true;
 				}
 			}
 		}
-		if(randomClass.enemys1.getLarge() != 0) {
-			for (int i = 0; i < randomClass.enemys1.getLarge(); i ++) {
-				enemy temp = (enemy) randomClass.enemys1.getNodo(i).getDato();
+		if(randomClass.enemies1.getLarge() != 0) {
+			for (int i = 0; i < randomClass.enemies1.getLarge(); i ++) {
+				enemy temp = (enemy) randomClass.enemies1.getNodo(i).getDato();
 				if (temp.getBounds().intersects(getBounds())) {
 					temp.mori();
 					return true;
@@ -67,9 +67,9 @@ public class bullet {
 			
 			}
 		}
-		if(randomClass.enemys2.getLarge() != 0) {
-			for (int i = 0; i < randomClass.enemys2.getLarge(); i ++) {
-				enemy temp = (enemy) randomClass.enemys2.getNodo(i).getDato();
+		if(randomClass.enemies2.getLarge() != 0) {
+			for (int i = 0; i < randomClass.enemies2.getLarge(); i ++) {
+				enemy temp = (enemy) randomClass.enemies2.getNodo(i).getDato();
 				if (temp.getBounds().intersects(getBounds())) {
 					temp.mori();
 					return true;
