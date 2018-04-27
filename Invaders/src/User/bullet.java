@@ -16,7 +16,7 @@ public class bullet {
 	public bullet(int x, int y) {
 		this.x = x;
 		this.y = y;
-		speed = 30;
+		speed = 150;
 	}
 	/**
 	 * controla la distancia entre las balas 
@@ -32,7 +32,7 @@ public class bullet {
 	 * @param g
 	 */
 	public void render(Graphics g) {
-		g.setColor(Color.ORANGE);
+		g.setColor(Color.RED);
 		g.fillRect(x, y, 5, 15);
 		if (y < 40) {
 			gameManager.bullet.remove(this);
@@ -50,7 +50,7 @@ public class bullet {
 	public boolean hit() {
 		if(randomClass.enemys.getLarge() != 0) {
 			for (int i = 0; i < randomClass.enemys.getLarge(); i ++) {
-				enemy temp = randomClass.enemys.getNodo(i);
+				enemy temp = randomClass.enemys.getNodo(i).getDato();
 				if (temp.getBounds().intersects(getBounds())) {
 					temp.mori();
 					return true;
@@ -59,12 +59,21 @@ public class bullet {
 		}
 		if(randomClass.enemys1.getLarge() != 0) {
 			for (int i = 0; i < randomClass.enemys1.getLarge(); i ++) {
-				enemy temp = randomClass.enemys1.getNodo(i);
+				enemy temp = (enemy) randomClass.enemys1.getNodo(i).getDato();
 				if (temp.getBounds().intersects(getBounds())) {
 					temp.mori();
 					return true;
 				}
 			
+			}
+		}
+		if(randomClass.enemys2.getLarge() != 0) {
+			for (int i = 0; i < randomClass.enemys2.getLarge(); i ++) {
+				enemy temp = (enemy) randomClass.enemys2.getNodo(i).getDato();
+				if (temp.getBounds().intersects(getBounds())) {
+					temp.mori();
+					return true;
+				}
 			}
 		}
 		return false;

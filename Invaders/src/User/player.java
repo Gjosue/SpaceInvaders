@@ -4,6 +4,10 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 import GUI.Window;
 import controller.SetUp;
@@ -12,9 +16,10 @@ import controller.gameManager;
 public class player implements KeyListener {
 	
 	private int x, y;
-	private boolean left, right, fire;
+	public boolean left, right, fire;
 	private static player instance = null;
-	private boolean shoot = true;
+	public boolean shoot = true;
+	public static int score = 0;
 	
 	private player(int x, int y) {
 		this.x = x;
@@ -26,7 +31,7 @@ public class player implements KeyListener {
 	 */
 	public static player getPlayer() {
 		if(instance == null) {
-			instance = new player(SetUp.gameWidth, SetUp.gameHeight);
+			instance = new player(SetUp.gameWidth, SetUp.gameHeight - 30);
 		}
 		return instance;
 	}
@@ -40,19 +45,19 @@ public class player implements KeyListener {
 	 * maneja la posicion y movimiento del jugador y los disparos
 	 */
 	public void tick() {
-		if (x > 180) {
+		if (x > 190) {
 			if (left) {
-				x -= 5;
+				x -= 20;
 			}
 		}
-		if (x < 1150) {
-			if (right) {
-				x += 5;
+		if (x < 1110) {
+			if (right){
+				x += 20;
 			}
 		}
 		if (fire) {
 			if (shoot) {
-				gameManager.bullet.add(new bullet(x + 12, y));
+				gameManager.bullet.add(new bullet(x + 27, y));
 				shoot = false;
 			}
 		}
@@ -63,8 +68,14 @@ public class player implements KeyListener {
 	 * @param g
 	 */
 	public void render(Graphics g) {
-		g.setColor(Color.GREEN);
-		g.fillRect(x, y, 30, 30);
+		try {
+			BufferedImage image =  ImageIO.read(this.getClass().getResource("/misc/ship.png"));
+			g.drawImage(image, x, y, 60, 60, Window.frame);
+//			g.setColor(Color.GREEN);
+//			g.fillRect(x, y, 30, 30);
+			}catch(IOException e) {
+			}
+		
 	}
 	/**
 	 * metodo que analiza las teclas presionadas en el teclado para que el jugador dispare o se mueva
@@ -100,38 +111,5 @@ public class player implements KeyListener {
 	
 	public void keyTyped(KeyEvent e) {
 		
-	}
-	/**
-	 * permite el movimiento del jugador hacia la izquierda
-	 */
-	public void sensorL() {
-		right = false;
-		left = true;
-	}
-	/**
-	 * permite el movimiento del jugador hacia la derecha
-	 */
-	public void sensorR() {
-		right = true;
-		left = false;
-	}
-	/**
-	 * detiene el movimiento del jugador
-	 */
-	public void stabilizer() {
-		right = false;
-		left = false;
-	}
-	/**
-	 * permite que el jugador dispare
-	 */
-	public void fire() {
-		fire = true;
-	}
-	/**
-	 * detiene los disparos del juagdor
-	 */
-	public void nonFire() {
-		fire = false;
 	}
 }

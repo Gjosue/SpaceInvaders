@@ -1,9 +1,11 @@
 package Lists;
 
 public class Nodo <T> {
-	private Nodo<T> next;
-	private Nodo<T> prev;
-	private T dato;
+	
+	protected Nodo<T> next;
+	protected Nodo<T> prev;
+	protected T dato;
+	
 	public Nodo(T dato){
 		this.dato = dato;
 		this.next = null;

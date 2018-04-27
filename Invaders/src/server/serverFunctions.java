@@ -6,30 +6,19 @@ public class serverFunctions{
 	
 	private player user = player.getPlayer();
 	
-	/**
-	 * metodo para controlar el movimiento del jugador mediante las señales llegadas al servidor por parte del cliente android
-	 * @param pos
-	 * @param fire
-	 */
-	public void movement(String pos){
-		if(pos.equals("left")) {
-			user.sensorL();
-		}else if(pos.equals("right")){
-			user.sensorR();
-		}else{
-			user.stabilizer();
-		}
-	}
-	/**
-	 * metodo para controlar las balas del jugador mediante las señales llegadas al servidor por parte del cliente android
-	 * @param fire
-	 */
-	public void fire(String fire) {
-		if (fire.equals("fire")) {
-			user.fire();
+	public void actions(String command) {
+		if (command.equals("left")){
+			user.left = true;
+			user.right = false;
+		}else if(command.equals("right")) {
+			user.right = true;
+			user.left = false;
+		}else if(command.equals("fire")) {
+			user.fire = true;
+			user.shoot = true;
 		}else {
-			user.nonFire();
+			user.left = false;
+			user.right = false;
 		}
 	}
-
 }

@@ -88,13 +88,13 @@ public class LinkedList <T>{
 		}
 	}
 	
-	public T getNodo(int i) {
+	public Nodo<T> getNodo(int i) {
 		int cont = 0;
 		Nodo<T> temp = this.head;
 		while(cont < i) {
 			temp = temp.getNext();
 			cont ++;
 		}
-		return temp.getDato();
+		return temp;
 	}
 }

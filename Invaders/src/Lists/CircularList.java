@@ -4,6 +4,7 @@ public class CircularList <T>{
 	private Nodo<T> head;
 	private Nodo<T> tail;
 	private int large;
+	
 	public CircularList(){
 		this.head = null;
 		this.tail = null;
@@ -41,11 +42,13 @@ public class CircularList <T>{
 			this.head = new Nodo<T>(dato);
 			this.tail = head;
 			this.tail.setNext(head);
+			this.head.setPrev(tail);
 		}else{
 			Nodo<T> temp = this.tail;
 			temp.setNext(new Nodo<T>(dato));
 			this.tail = temp.getNext();
 			this.tail.setNext(head);
+			this.head.setPrev(tail);
 		}
 	}
 	/**
@@ -57,11 +60,13 @@ public class CircularList <T>{
 		if(nodo.getDato() == dato){
 			this.head = nodo.getNext();
 			this.tail.setNext(head);
+			this.head.setPrev(tail);
 			large --;
 		}else{
 			while(nodo.getNext()!= head){
 				if(nodo.getNext().getDato() == dato){
 					nodo.setNext(nodo.getNext().getNext());
+					nodo.getNext().setPrev(nodo);
 					large --;
 					if(nodo.getNext() == head){
 						this.tail = nodo;
@@ -74,6 +79,14 @@ public class CircularList <T>{
 			}
 		}
 	}
+	
+	public void deleteAll() {
+		this.head.setNext(null);
+		this.head.setPrev(null);
+		this.head = null;
+		this.setLarge(0);
+	}
+	
 	/**
 	 * Matodo para imprimir la lista
 	 */
@@ -88,5 +101,15 @@ public class CircularList <T>{
 		System.out.println(actual.getDato());
 		actual = actual.getNext();
 		System.out.println(actual.getDato());
+	}
+	
+	public Nodo<T> getNodo(int i) {
+		int cont = 0;
+		Nodo<T> temp = this.head;
+		while(cont < i) {
+			temp = temp.getNext();
+			cont ++;
+		}
+		return temp;
 	}
 }

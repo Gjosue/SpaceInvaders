@@ -1,13 +1,17 @@
 package Lists;
 
+import enemys.enemy;
+import enemys.randomClass;
 
 public class DoublyLinked <T>{
-	private Nodo<T> head;
-	private Nodo<T> tail;
+	
+	private DoubleNodo<T> head;
+	private DoubleNodo<T> tail;
 	private int large;
 	public int positionEnemy;
 	public int positionBoss;
 	public int position;
+	
 	public DoublyLinked(){
 		this.head = null;
 		this.tail = null;
@@ -17,16 +21,16 @@ public class DoublyLinked <T>{
 	 * Getters and setters
 	 * @return
 	 */
-	public Nodo<T> getHead() {
+	public DoubleNodo<T> getHead() {
 		return head;
 	}
-	public void setHead(Nodo<T> head) {
+	public void setHead(DoubleNodo<T> head) {
 		this.head = head;
 	}
-	public Nodo<T> getTail() {
+	public DoubleNodo<T> getTail() {
 		return tail;
 	}
-	public void setTail(Nodo<T> tail) {
+	public void setTail(DoubleNodo<T> tail) {
 		this.tail = tail;
 	}
 	public int getLarge() {
@@ -39,14 +43,14 @@ public class DoublyLinked <T>{
 	 * Matodo para añadir datos
 	 * @param dato
 	 */
-	public void add(T dato){
+	public void add(T dato, int id, String name){
 		large ++;
 		if(this.head == null){
-			this.head = new Nodo<T>(dato);
+			this.head = new DoubleNodo<T>(dato, id);
 			this.tail = head;
 		}else{
-			Nodo<T> temp = this.tail;
-			temp.setNext(new Nodo<T>(dato));
+			DoubleNodo<T> temp = this.tail;
+			temp.setNext(new DoubleNodo<T>(dato, id));
 			temp.getNext().setPrev(temp);
 			this.tail = temp.getNext();
 		}
@@ -56,7 +60,7 @@ public class DoublyLinked <T>{
 	 * @param dato
 	 */
 	public void delete(T dato){
-		Nodo<T> nodo = this.head;
+		DoubleNodo<T> nodo = this.head;
 		while(nodo != null){
 			if(nodo.getDato() == dato){
 				if(nodo != head && nodo.getNext() == null){
@@ -95,40 +99,77 @@ public class DoublyLinked <T>{
 	 * Metodo para imprimir la lista
 	 */
 	public void printList(){
-		Nodo<T> actual = this.head;
+		DoubleNodo<T> actual = this.head;
 		while(actual != null){
 			System.out.println(actual.getDato());
 			actual = actual.getNext();
 		}
 	}
 	
-	public T getNodo(int i) {
+//	public T getNodoDato(int i) {
+//		int cont = 0;
+//		Nodo<T> temp = this.head;
+//		while(cont < i) {
+//			temp = temp.getNext();
+//			cont ++;
+//		}
+//		return temp.getDato();
+//	}
+	
+	public DoubleNodo<T> getNodo(int i) {
 		int cont = 0;
-		Nodo<T> temp = this.head;
+		DoubleNodo<T> temp = this.head;
 		while(cont < i) {
 			temp = temp.getNext();
 			cont ++;
 		}
-		return temp.getDato();
+		return temp;
 	}
 	
-	public void search(T num) {
+	
+	public void search(int e) {
 		position = 0;
-		Nodo<T> temp = this.head;
+		DoubleNodo<T> temp = this.head;
 		while(temp != null){
-			if(temp.getDato() == num){
-				if(temp == this.head) {
-					System.out.println("El numero " + num + " esta en la posicion " + position);
-					break;
-				}else {
-					System.out.println("El numero " + num + " esta en la posicion " + position);
-					break;
-				}
+			if(temp.ID == e){
+				break;
 			}else {
 				temp = temp.getNext();
 				position ++;
 			}
 		}
+		if (randomClass.enemys1.getLarge() == position) {
+			position = 0;
+		}
+	}
+	
+	public void change(int boss, int enemy) {
+		search(boss);
+		positionBoss = position;
+		System.out.println(positionBoss);
+		search(enemy);
+		positionEnemy = position;
+		System.out.println(positionEnemy);
+		enemy temp = randomClass.enemys1.getNodo(positionBoss).getDato();
+		enemy temp1 = randomClass.enemys1.getNodo(positionEnemy).getDato();
+		randomClass.enemys1.getNodo(positionEnemy).setDato(temp);
+		randomClass.enemys1.getNodo(positionBoss).setDato(temp1);
+		int n1 = temp.a;
+		int n2 = temp1.a;
+		int m1 = temp.b;
+		int m2 = temp1.b;
+		int x1 = temp.x;
+		int x2 = temp1.x;
+		int ID1 = temp.ID;
+		int ID2 = temp.ID;
+		temp.a = n2;
+		temp1.a = n1;
+		temp.b = m2;
+		temp1.b = m1;
+		temp.x = x2;
+		temp1.x = x1;
+		temp.ID = ID2;
+		temp1.ID = ID1;
 	}
 	
 	 

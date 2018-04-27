@@ -1,8 +1,16 @@
 package controller;
 
+import java.applet.AudioClip;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.URL;
+import javax.imageio.ImageIO;
+import java.applet.Applet;
+
+
 import GUI.Window;
 
 public class SetUp implements Runnable {
@@ -14,8 +22,10 @@ public class SetUp implements Runnable {
 	private Window Window;
 	private BufferStrategy b;
 	private Graphics g;
-	private gameManager manager;
+	public static gameManager manager;
 	public static final int gameWidth = 665, gameHeight = 660;
+	public static int cont = 0;
+	public AudioClip BG = Applet.newAudioClip(SetUp.class.getResource("/misc/bg.wav"));
 	
 	public SetUp(String title, int width, int height) {
 		this.title = title;
@@ -29,6 +39,7 @@ public class SetUp implements Runnable {
 		Window = new Window(title, width, height);
 		manager = new gameManager();
 		manager.init();
+		BG.loop();
 	}
 	 /**
 	  * metodo para inicializar el programa y llamar el thread
@@ -56,7 +67,9 @@ public class SetUp implements Runnable {
 	 * se llama otro metodo de procesos
 	 */
 	public void tick() {
-		manager.tick();
+		if(cont == 0) {
+			manager.tick();
+		}
 	}
 	/**
 	 * obtencion de un canvas para la pantalla del juego(no es de toda la ventana)
@@ -68,11 +81,13 @@ public class SetUp implements Runnable {
 			return;
 		}
 		g = b.getDrawGraphics();
-		g.clearRect(0, 0, width, height);
+		//g.clearRect(0, 0, width, height);
 		//draw
 		
 		g.setColor(Color.BLACK);
-		g.fillRect(180, 8, 1000, 688);
+		
+		
+		g.fillRect(150, 8, 1060, 688);
 		manager.render(g);
 		
 		//end of draw

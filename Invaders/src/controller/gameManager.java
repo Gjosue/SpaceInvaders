@@ -4,6 +4,8 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.Random;
 
+import javax.swing.JOptionPane;
+
 import Lists.DoublyLinked;
 import Lists.LinkedList;
 import User.bullet;
@@ -15,7 +17,9 @@ public class gameManager {
 	
 	public player Player = player.getPlayer();
 	public static ArrayList<bullet> bullet;
-	private randomClass generateEnemy = new randomClass();
+	public static randomClass generateEnemy = new randomClass();
+	private int cont = 0;
+	
 	
 	public gameManager() {
 		
@@ -26,17 +30,30 @@ public class gameManager {
 	public void init() {
 		Player.init();
 		bullet = new ArrayList<bullet>();
-		generateEnemy.init();
+		generateEnemy.generateLevels();
 	}
 	/**
 	 * llama el metodo que maneja el movimiento del jugador y controla la creacion de la balas
 	 */
 	public void tick() {
-		Player.tick();
-		generateEnemy.tick();
-		for (int i = 0; i < bullet.size(); i ++) {
-			bullet.get(i).tick();
-		}
+		
+			if(randomClass.enemys.getLarge() == 0 && randomClass.enemys1.getLarge() == 0 && randomClass.enemys2.getLarge() == 0 && randomClass.level <= 5) {
+				controller.game.cont = 1;
+				generateEnemy.cont ++;
+				if(generateEnemy.cont == 1 | generateEnemy.cont == 3 | generateEnemy.cont == 6 | generateEnemy.cont == 10 | 
+						generateEnemy.cont == 15) {
+					JOptionPane.showMessageDialog(null,"NIVEL " + randomClass.level + " COMPLETADO");
+					generateEnemy.level ++;
+				}
+				controller.game.cont = 0;
+				generateEnemy.generateLevels();
+			}
+			Player.tick();
+			generateEnemy.tick();
+			for (int i = 0; i < bullet.size(); i ++) {
+				bullet.get(i).tick();
+			}
+		
 	}
 	/**
 	 * se dibuja un cuadro que es el jugador y se maneja el uso de las balas

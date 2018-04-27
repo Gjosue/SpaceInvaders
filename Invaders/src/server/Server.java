@@ -33,9 +33,7 @@ public class Server extends Thread{
     			entrada = new BufferedReader(new InputStreamReader(cliente.getInputStream()));
     			//salida = new PrintWriter(new OutputStreamWriter(cliente.getOutputStream()));
     			command = entrada.readLine();
-    			System.out.println(command);
-    			function.movement(command);
-    			function.fire(command);
+    			function.actions(command);
     			//salida.print(position);
     			cliente.close();
     		}
